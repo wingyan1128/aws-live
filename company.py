@@ -84,10 +84,9 @@ def adminLogin():
         records = cursor.fetchall()
 
         if records and records[0][2] != adminPassword:
-            # Add a flag to indicate that the login failed
-            return render_template('AdminPage.html', admin=records, login_failed=True)
-
-        return render_template('AdminPage.html', admin=records)
+            return render_template('AdminPage.html', login_failed=True)
+        else:
+            return render_template('AdminPage.html', admin=records)
 
     except Exception as e:
         return str(e)
