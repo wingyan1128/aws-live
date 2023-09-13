@@ -76,7 +76,7 @@ def adminLogin():
     fetch_sql = "SELECT * FROM admin WHERE adminEmail = %s"
     cursor = db_conn.cursor()
 
-    if adminEmail == "":  # Corrected variable name from emp_id to adminEmail
+    if adminEmail == "":
         return "Please enter an admin email"
 
     try:
@@ -84,9 +84,10 @@ def adminLogin():
         records = cursor.fetchall()
 
         if records and records[0][2] != adminPassword:
-            return "Invalid email or password"
-        else:
-            return render_template('AdminPage.html', admin=records)
+            # Add a flag to indicate that the login failed
+            return render_template('AdminPage.html', admin=records, login_failed=True)
+
+        return render_template('AdminPage.html', admin=records)
 
     except Exception as e:
         return str(e)
