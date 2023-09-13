@@ -68,7 +68,7 @@ def companyReg():
     return render_template('CompanyLogin.html')
 
 
-@app.route("/adminLogin", methods=['POST'])
+@app.route("/adminLogin", methods=['GET', 'POST'])
 def adminLogin():
     adminEmail = request.form['adminEmail']
     adminPassword = request.form['adminPassword']
