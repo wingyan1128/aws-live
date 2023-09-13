@@ -25,7 +25,7 @@ table = 'company'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('CompanyRegister.html')
+    return render_template('AdminLogin.html')
 
 
 @app.route("/companyLogin")
@@ -67,6 +67,37 @@ def companyReg():
     print("all modification done...")
     return render_template('CompanyLogin.html')
 
+
+@app.route("/adminLogin", methods=['POST'])
+def adminLogin():
+   adminEmail = request.form['adminEmail']
+   adminPassword = request.form['adminPassword']
+
+    fetch_sql = "SELECT * FROM admin WHERE adminEmail = %s"
+    cursor = db_conn.cursor()
+
+    if emp_id == "":
+        return "Please enter an admin email"
+
+
+    try:
+        cursor.execute(fetch_sql, (adminEmail))
+        records = cursor.fetchall()
+
+        if records[0][2] != adminPassword:
+                return "Invalid email or password"
+        else:
+                return render_template('AdminPage.html', admin=records)
+
+        
+    except Exception as e:
+        return str(e)
+
+
+    finally:
+        cursor.close()
+
+    
 
 
 if __name__ == '__main__':
