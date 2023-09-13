@@ -28,9 +28,9 @@ def home():
     return render_template('CompanyRegister.html')
 
 
-@app.route("/about", methods=['POST'])
-def about():
-    return render_template('Login.html') 
+@app.route("/companyLogin", methods=['POST'])
+def companyLogin():
+    return render_template('CompanyLogin.html') 
 
 
 @app.route("/companyReg", methods=['POST'])
