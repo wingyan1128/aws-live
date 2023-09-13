@@ -53,7 +53,7 @@ def companyReg():
 
     try:
 
-        cursor.execute(insert_sql, (company_name, email, contact, address, type_of_business, num_of_employee, overview, password, status))
+        cursor.execute(insert_sql, (companyName, companyEmail, companyContact, companyAddress, typeOfBusiness, numOfEmployee, overview, companyPassword, status))
         db_conn.commit()
         
 
