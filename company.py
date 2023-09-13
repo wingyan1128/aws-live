@@ -70,29 +70,26 @@ def companyReg():
 
 @app.route("/adminLogin", methods=['POST'])
 def adminLogin():
-   adminEmail = request.form['adminEmail']
-   adminPassword = request.form['adminPassword']
+    adminEmail = request.form['adminEmail']
+    adminPassword = request.form['adminPassword']
 
     fetch_sql = "SELECT * FROM admin WHERE adminEmail = %s"
     cursor = db_conn.cursor()
 
-    if emp_id == "":
+    if adminEmail == "":  # Corrected variable name from emp_id to adminEmail
         return "Please enter an admin email"
 
-
     try:
-        cursor.execute(fetch_sql, (adminEmail))
+        cursor.execute(fetch_sql, (adminEmail,))
         records = cursor.fetchall()
 
-        if records[0][2] != adminPassword:
-                return "Invalid email or password"
+        if records and records[0][2] != adminPassword:
+            return "Invalid email or password"
         else:
-                return render_template('AdminPage.html', admin=records)
+            return render_template('AdminPage.html', admin=records)
 
-        
     except Exception as e:
         return str(e)
-
 
     finally:
         cursor.close()
