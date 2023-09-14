@@ -85,6 +85,8 @@ def adminLogin():
         cursor.execute(fetch_company_sql, (status,))
         companyRecords = cursor.fetchall()
 
+        if not records:
+            return render_template('AdminLogin.html', login_failed=True)
         if records and records[0][2] != adminPassword:
             return render_template('AdminLogin.html', login_failed=True)
         else:
@@ -187,14 +189,11 @@ def companyLogin():
         cursor.execute(fetch_company_sql, (companyEmail,))
         records = cursor.fetchall()
 
-        print(records)
-        print(companyEmail)
-        print(companyPassword)
-        
-        
-        if records and records[0][7] != companyPassword:
+        if not records:
             return render_template('CompanyLogin.html', login_failed=True)
-        elif records and records[0][8] != status:
+        if records[0][7] != companyPassword:
+            return render_template('CompanyLogin.html', login_failed=True)
+        elif records[0][8] != status:
             return render_template('CompanyLogin.html', inactive_acc=True)
         else:
             return render_template('CompanyPage.html', company=records)
