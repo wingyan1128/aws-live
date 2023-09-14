@@ -110,7 +110,7 @@ def approveCompany():
     adminEmail = request.args.get('adminEmail')
 
     fetch_admin_sql = "SELECT * FROM admin WHERE adminEmail = %s"
-    sql = "UPDATE company SET status=%s WHERE companyName=%s"
+    sql = "UPDATE company SET status= %s WHERE companyName= %s"
     cursor = db_conn.cursor()
 
   
