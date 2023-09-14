@@ -115,46 +115,48 @@
         </div>
         <div class="u-align-center u-table u-table-responsive u-table-2">
           <pwa-container-wrapper style="display: flex !important; height: 0px;"></pwa-container-wrapper>
-          <table class="u-table-entity">
-            <colgroup>
-              <col width="28.03%">
-              <col width="71.97%">
-            </colgroup>
-            <tbody class="u-align-left u-custom-font u-font-merriweather u-table-body u-table-body-2">
-              <tr style="height: 49px;">
-                <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-7">Company Name</td>
-                <td class="u-border-1 u-border-black u-table-cell">{{ company[0][0] }}</td>
-              </tr>
-              <tr style="height: 49px;">
-                <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-9">Company Email</td>
-                <td class="u-border-1 u-border-black u-table-cell">{{ company[0][1] }}</td>
-              </tr>
-              <tr style="height: 49px;">
-                <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-11">Company Contact</td>
-                <td class="u-border-1 u-border-black u-table-cell">{{ company[0][2] }}</td>
-              </tr>
-              <tr style="height: 49px;">
-                <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-13">Company Address</td>
-                <td class="u-border-1 u-border-black u-table-cell">{{ company[0][3] }}</td>
-              </tr>
-              <tr style="height: 49px;">
-                <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-15">Type Of Business</td>
-                <td class="u-border-1 u-border-black u-table-cell">{{ company[0][4] }}</td>
-              </tr>
-              <tr style="height: 55px;">
-                <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-17">Number of Employee</td>
-                <td class="u-border-1 u-border-black u-table-cell">{{ company[0][5] }}</td>
-              </tr>
-              <tr style="height: 55px;">
-                <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-19">Overview</td>
-                <td class="u-border-1 u-border-black u-table-cell">{{ company[0][6] }}</td>
-              </tr>
-              <tr style="height: 81px;">
-                <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-21"></td>
-                <td class="u-border-1 u-border-black u-table-cell"></td>
-              </tr>
-            </tbody>
-          </table>
+          {% for row in company %}
+<table class="u-table-entity">
+    <colgroup>
+        <col width="28.03%">
+        <col width="71.97%">
+    </colgroup>
+    <tbody class="u-align-left u-custom-font u-font-merriweather u-table-body u-table-body-2">
+        <tr style="height: 49px;">
+            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-7">Company Name</td>
+            <td class="u-border-1 u-border-black u-table-cell">{{ row[0] }}</td>
+        </tr>
+        <tr style="height: 49px;">
+            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-9">Company Email</td>
+            <td class="u-border-1 u-border-black u-table-cell">{{ row[1] }}</td>
+        </tr>
+        <tr style="height: 49px;">
+            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-11">Company Contact</td>
+            <td class="u-border-1 u-border-black u-table-cell">{{ row[2] }}</td>
+        </tr>
+        <tr style="height: 49px;">
+            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-13">Company Address</td>
+            <td class="u-border-1 u-border-black u-table-cell">{{ row[3] }}</td>
+        </tr>
+        <tr style="height: 49px;">
+            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-15">Type Of Business</td>
+            <td class="u-border-1 u-border-black u-table-cell">{{ row[4] }}</td>
+        </tr>
+        <tr style="height: 55px;">
+            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-17">Number of Employee</td>
+            <td class="u-border-1 u-border-black u-table-cell">{{ row[5] }}</td>
+        </tr>
+        <tr style="height: 55px;">
+            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-19">Overview</td>
+            <td class="u-border-1 u-border-black u-table-cell">{{ row[6] }}</td>
+        </tr>
+        <tr style="height: 81px;">
+            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-21"></td>
+            <td class="u-border-1 u-border-black u-table-cell"></td>
+        </tr>
+    </tbody>
+</table>
+{% endfor %}
         </div>
         <a href="https://nicepage.review" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-1">Approve</a>
         <a href="https://nicepage.review" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-2-base u-radius-50 u-btn-2">Reject</a>
