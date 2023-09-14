@@ -108,7 +108,7 @@ def adminLogin():
     status="Approved"
     companyName = request.args.get('companyName')
 
-    sql = "UPDATE company SET status=%s WHERE companyName=%s“
+    sql = "UPDATE company SET status=%s WHERE companyName=%s"
     cursor = db_conn.cursor()
 
   
