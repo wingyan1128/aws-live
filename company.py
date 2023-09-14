@@ -135,6 +135,39 @@ def approveCompany():
     finally:
         cursor.close()
 
+@app.route("/rejectCompany", methods=['GET', 'POST'])
+def rejectCompany():
+
+    status="Rejected"
+    status2="Pending Approval"
+    companyName = request.args.get('companyName')
+    adminEmail = request.args.get('adminEmail')
+
+    fetch_admin_sql = "SELECT * FROM admin WHERE adminEmail = %s"
+    fetch_company_sql = "SELECT * FROM company WHERE status = %s"
+    sql = "UPDATE company SET status = %s WHERE companyName = %s"
+    cursor = db_conn.cursor()
+
+  
+    try:
+        cursor.execute(fetch_admin_sql, (adminEmail,))
+        records = cursor.fetchall()
+        
+        cursor.execute(sql, (status, companyName,))
+        db_conn.commit()
+
+        cursor.execute(fetch_company_sql, (status2,))
+        companyRecords = cursor.fetchall()
+
+
+        return render_template('AdminPage.html', admin=records, company=companyRecords, updateSuccessful=True )
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
