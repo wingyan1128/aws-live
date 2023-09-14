@@ -72,23 +72,28 @@ def companyReg():
 def adminLogin():
     adminEmail = request.form['adminEmail']
     adminPassword = request.form['adminPassword']
+    status = "Pending Approval"
 
 
     
-    fetch_sql = "SELECT * FROM admin WHERE adminEmail = %s"
+    fetch_admin_sql = "SELECT * FROM admin WHERE adminEmail = %s"
+    fetch_company_sql = "SELECT * FROM company WHERE status = %s"
     cursor = db_conn.cursor()
 
     if adminEmail == "" and adminPassword == "":
         return render_template('AdminLogin.html', empty_field=True)
 
     try:
-        cursor.execute(fetch_sql, (adminEmail,))
+        cursor.execute(fetch_admin_sql, (adminEmail))
         records = cursor.fetchall()
+
+        cursor.execute(fetch_company_sql, (status))
+        companyRecords = cursor.fetchall()
 
         if records and records[0][2] != adminPassword:
             return render_template('AdminLogin.html', login_failed=True)
         else:
-            return render_template('AdminPage.html', admin=records)
+            return render_template('AdminPage.html', admin=records, company=companyRecords)
 
     except Exception as e:
         return str(e)
