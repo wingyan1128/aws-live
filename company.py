@@ -28,11 +28,6 @@ def home():
     return render_template('CompanyLogin.html')
 
 
-@app.route("/companyLogin")
-def companyLogin():
-    return render_template('CompanyLogin.html') 
-
-
 @app.route("/companyReg", methods=['POST'])
 def companyReg():
     companyName = request.form['companyName']
