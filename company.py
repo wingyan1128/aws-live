@@ -169,7 +169,7 @@ def rejectCompany():
     finally:
         cursor.close()
 
-@app.route("/toLoginPg")
+@app.route("/toAdminLogin")
 def toLoginPg():
     return render_template('AdminLogin.html') 
 
