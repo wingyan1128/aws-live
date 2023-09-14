@@ -101,7 +101,29 @@ def adminLogin():
     finally:
         cursor.close()
 
+
+@app.route("/approveCompany", methods=['GET', 'POST'])
+def adminLogin():
+
+    status="Approved"
+    companyName=""
+
     
+    sql = "UPDATE company SET status=%s WHERE companyName=%s
+    cursor = db_conn.cursor()
+
+  
+    try:
+        cursor.execute(sql, (adminEmail))
+        records = cursor.fetchall()
+
+        return render_template('AdminPage.html', updateSuccessful=True)
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
 
 
 if __name__ == '__main__':
