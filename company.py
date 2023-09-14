@@ -106,15 +106,14 @@ def adminLogin():
 def adminLogin():
 
     status="Approved"
-    companyName=""
+    companyName = request.args.get('companyName')
 
-    
-    sql = "UPDATE company SET status=%s WHERE companyName=%s
+    sql = "UPDATE company SET status=%s WHERE companyName=%s“
     cursor = db_conn.cursor()
 
   
     try:
-        cursor.execute(sql, (adminEmail))
+        cursor.execute(sql, (status, companyName))
         records = cursor.fetchall()
 
         return render_template('AdminPage.html', updateSuccessful=True)
