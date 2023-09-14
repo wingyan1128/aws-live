@@ -106,6 +106,7 @@ def adminLogin():
 def approveCompany():
 
     status="Approved"
+    status2="Pending Approval"
     companyName = request.args.get('companyName')
     adminEmail = request.args.get('adminEmail')
 
@@ -118,12 +119,12 @@ def approveCompany():
     try:
         cursor.execute(fetch_admin_sql, (adminEmail,))
         records = cursor.fetchall()
-
-        cursor.execute(fetch_company_sql, (status,))
-        companyRecords = cursor.fetchall()
         
         cursor.execute(sql, (status, companyName,))
         db_conn.commit()
+
+        cursor.execute(fetch_company_sql, (status2,))
+        companyRecords = cursor.fetchall()
 
 
         return render_template('AdminPage.html', admin=records, company=companyRecords, updateSuccessful=True )
