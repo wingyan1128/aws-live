@@ -25,7 +25,12 @@
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
   <body class="u-body u-xl-mode" data-lang="en"><header class="u-black u-clearfix u-header u-header" id="sec-519f"><div class="u-clearfix u-sheet u-sheet-1">
-        <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
+       {% if updateSuccessful %}
+    <script>
+        alert("Updated successfully.");
+    </script>
+    {% endif %}
+	  <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
           <div class="menu-collapse u-custom-font u-font-merriweather" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
               <svg class="u-svg-link" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-6809"></use></svg>
