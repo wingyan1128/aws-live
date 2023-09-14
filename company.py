@@ -182,9 +182,6 @@ def companyLogin():
     companyPassword = request.form['companyPassword']
     status = "Approved"
 
-
-    
-
     fetch_company_sql = "SELECT * FROM company WHERE companyEmail = %s"
     cursor = db_conn.cursor()
 
