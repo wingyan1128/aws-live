@@ -76,8 +76,8 @@ def adminLogin():
     fetch_sql = "SELECT * FROM admin WHERE adminEmail = %s"
     cursor = db_conn.cursor()
 
-    if adminEmail == "":
-        return "Please enter an admin email"
+    if adminEmail == "" and adminPassword == "":
+        return render_template('AdminLogin.html', empty_field=True)
 
     try:
         cursor.execute(fetch_sql, (adminEmail,))
