@@ -5,8 +5,8 @@
     <meta name="keywords" content="Welcome : Marcus Baker">
     <meta name="description" content="">
     <title>AdminPage</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="AdminPage.css" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='nicepage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='AdminPage.css') }}">
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.17.1, nicepage.com">
@@ -80,7 +80,7 @@
       <div class="u-clearfix u-sheet u-sheet-1">
         <quillbot-extension style="position: absolute; top: 0px; left: 0px; pointer-events: none;"></quillbot-extension>
         <quillbot-extension-highlights style="position: absolute; top: 0px; left: 0px; pointer-events: none;"></quillbot-extension-highlights>
-        <h1 class="u-text u-text-body-color u-text-default u-text-1">Welcome: Siak Yen</h1>
+        <h1 class="u-text u-text-body-color u-text-default u-text-1">Welcome: {{ staff[0][0] }}</h1>
         <div class="u-table u-table-responsive u-table-1">
           <pwa-container-wrapper style="display: flex !important; height: 0px;"></pwa-container-wrapper>
           <table class="u-table-entity">
@@ -99,11 +99,11 @@
                 <td class="u-align-right u-table-cell u-table-cell-3">
                   <span style="font-size: 1.25rem;">Admin Name</span>
                 </td>
-                <td class="u-table-cell">Lee Siak Yen</td>
+                <td class="u-table-cell">{{ staff[0][0] }}</td>
               </tr>
               <tr style="height: 26px;">
                 <td class="u-align-right u-table-cell u-table-cell-5">Admin Email</td>
-                <td class="u-table-cell">123</td>
+                <td class="u-table-cell">{{ staff[0][1] }}</td>
               </tr>
             </tbody>
           </table>
