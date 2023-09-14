@@ -110,6 +110,7 @@ def approveCompany():
     adminEmail = request.args.get('adminEmail')
 
     fetch_admin_sql = "SELECT * FROM admin WHERE adminEmail = %s"
+    fetch_company_sql = "SELECT * FROM company WHERE status = %s"
     sql = "UPDATE company SET status = %s WHERE companyName = %s"
     cursor = db_conn.cursor()
 
@@ -117,11 +118,15 @@ def approveCompany():
     try:
         cursor.execute(fetch_admin_sql, (adminEmail,))
         records = cursor.fetchall()
+
+        cursor.execute(fetch_company_sql, (status,))
+        companyRecords = cursor.fetchall()
         
         cursor.execute(sql, (status, companyName,))
+        db_conn.commit()
 
 
-        return render_template('AdminPage.html', admin=records, updateSuccessful=True)
+        return render_template('AdminPage.html', admin=records, company=companyRecords, updateSuccessful=True )
 
     except Exception as e:
         return str(e)
