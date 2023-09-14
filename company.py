@@ -103,7 +103,7 @@ def adminLogin():
 
 
 @app.route("/approveCompany", methods=['GET', 'POST'])
-def adminLogin():
+def approveCompany():
 
     status="Approved"
     companyName = request.args.get('companyName')
