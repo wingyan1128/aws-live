@@ -192,7 +192,7 @@ def companyLogin():
         cursor.execute(fetch_company_sql, (companyEmail,))
         records = cursor.fetchall()
 
-       if records and records[0][2] != companyPassword:
+        if records and records[0][2] != companyPassword:
             return render_template('CompanyLogin.html', login_failed=True)
         elif records and records[0][8] != status:
             return render_template('CompanyLogin.html', inactive_acc=True)
