@@ -29,9 +29,15 @@
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
   <body class="u-body u-xl-mode" data-lang="en"><header class="u-black u-clearfix u-header u-header" id="sec-519f"><div class="u-clearfix u-sheet u-sheet-1">
 
-	  {% if login_failed %}
+    {% if login_failed %}
     <script>
         alert("Invalid email or password. Please try again.");
+    </script>
+    {% endif %}
+
+   {% if empty_field %}
+    <script>
+        alert("Please enter both email and password.");
     </script>
     {% endif %}
 	  
