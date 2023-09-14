@@ -113,9 +113,10 @@
             <p class="u-custom-font u-font-merriweather u-text u-text-2">Company Pending Approval</p>
           </div>
         </div>
-        <div class="u-align-center u-table u-table-responsive u-table-2">
-          <pwa-container-wrapper style="display: flex !important; height: 0px;"></pwa-container-wrapper>
+        
           {% for row in company %}
+	      <div class="u-align-center u-table u-table-responsive u-table-2">
+          <pwa-container-wrapper style="display: flex !important; height: 0px;"></pwa-container-wrapper>
 <table class="u-table-entity">
     <colgroup>
         <col width="28.03%">
@@ -156,9 +157,10 @@
         </tr>
     </tbody>
 </table>
+</div>
 <br>
 {% endfor %}
-        </div>
+        
         <a href="https://nicepage.review" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-1">Approve</a>
         <a href="https://nicepage.review" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-2-base u-radius-50 u-btn-2">Reject</a>
       </div>
