@@ -73,6 +73,8 @@ def adminLogin():
     adminEmail = request.form['adminEmail']
     adminPassword = request.form['adminPassword']
 
+
+    
     fetch_sql = "SELECT * FROM admin WHERE adminEmail = %s"
     cursor = db_conn.cursor()
 
