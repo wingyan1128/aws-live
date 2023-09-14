@@ -68,6 +68,7 @@ def companyReg():
     return render_template('CompanyLogin.html')
 
 
+
 @app.route("/adminLogin", methods=['GET', 'POST'])
 def adminLogin():
     adminEmail = request.form['adminEmail']
@@ -167,6 +168,10 @@ def rejectCompany():
 
     finally:
         cursor.close()
+
+@app.route("/toLoginPg")
+def toLoginPg():
+    return render_template('AdminLogin.html') 
 
 
 if __name__ == '__main__':
