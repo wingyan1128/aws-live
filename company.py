@@ -53,7 +53,7 @@ def companyReg():
 
     try:
 
-        cursor.execute(insert_sql, (companyName, companyEmail, companyContact, companyAddress, typeOfBusiness, numOfEmployee, overview, companyPassword, status))
+        cursor.execute(insert_sql, (companyName, companyEmail, companyContact, companyAddress, typeOfBusiness, numOfEmployee, overview, companyPassword, status,))
         db_conn.commit()
         
 
@@ -84,10 +84,10 @@ def adminLogin():
         return render_template('AdminLogin.html', empty_field=True)
 
     try:
-        cursor.execute(fetch_admin_sql, (adminEmail))
+        cursor.execute(fetch_admin_sql, (adminEmail,))
         records = cursor.fetchall()
 
-        cursor.execute(fetch_company_sql, (status))
+        cursor.execute(fetch_company_sql, (status,))
         companyRecords = cursor.fetchall()
 
         if records and records[0][2] != adminPassword:
@@ -110,15 +110,15 @@ def approveCompany():
     adminEmail = request.args.get('adminEmail')
 
     fetch_admin_sql = "SELECT * FROM admin WHERE adminEmail = %s"
-    sql = "UPDATE company SET status= %s WHERE companyName= %s"
+    sql = "UPDATE company SET status = %s WHERE companyName = %s"
     cursor = db_conn.cursor()
 
   
     try:
-        cursor.execute(fetch_admin_sql, (adminEmail))
+        cursor.execute(fetch_admin_sql, (adminEmail,))
         records = cursor.fetchall()
         
-        cursor.execute(sql, (status, companyName))
+        cursor.execute(sql, (status, companyName,))
 
 
         return render_template('AdminPage.html', admin=records, updateSuccessful=True)
