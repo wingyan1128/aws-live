@@ -55,6 +55,12 @@
         alert("Please enter both email and password.");
     </script>
     {% endif %}
+
+   {% if inactive_acc %}
+    <script>
+        alert("This account is pending approval.");
+    </script>
+    {% endif %}
 	  
 <ul id="nav">
       <li  style="float:left"><a id="link" href="/">Home</a></li>
