@@ -108,15 +108,19 @@ def approveCompany():
     status="Approved"
     companyName = request.args.get('companyName')
 
+    fetch_admin_sql = "SELECT * FROM admin WHERE adminEmail = %s"
     sql = "UPDATE company SET status=%s WHERE companyName=%s"
     cursor = db_conn.cursor()
 
   
     try:
-        cursor.execute(sql, (status, companyName))
+        cursor.execute(fetch_admin_sql, (adminEmail))
         records = cursor.fetchall()
+        
+        cursor.execute(sql, (status, companyName))
 
-        return render_template('AdminPage.html', updateSuccessful=True)
+
+        return render_template('AdminPage.html', admin=records, updateSuccessful=True)
 
     except Exception as e:
         return str(e)
