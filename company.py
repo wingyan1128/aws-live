@@ -187,7 +187,7 @@ def companyLogin():
         cursor.execute(fetch_company_sql, (companyEmail,))
         records = cursor.fetchall()
 
-        printf(records)
+        print(records)  # Corrected from printf to print
         
         if records and records[0][7] != companyPassword:
             return render_template('CompanyLogin.html', login_failed=True)
