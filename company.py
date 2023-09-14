@@ -173,6 +173,10 @@ def toAdminLogin():
 def toCompanyLogin():
     return render_template('CompanyLogin.html') 
 
+@app.route("/toCompanyRegister")
+def toCompanyRegister():
+    return render_template('CompanyRegister.html') 
+
 @app.route("/companyLogin", methods=['GET', 'POST'])
 def companyLogin():
     companyEmail = request.form['companyEmail']
