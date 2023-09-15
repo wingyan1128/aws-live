@@ -220,6 +220,7 @@ def studLogin():
     #fetch_company_sql = "SELECT * FROM company WHERE status = %s"
     cursor = db_conn.cursor()
 
+    
     if studEmail == "" and studIc == "":
         return render_template('StudLogin.html', empty_field=True)
 
@@ -230,6 +231,9 @@ def studLogin():
         # cursor.execute(fetch_company_sql, (status))
         # companyRecords = cursor.fetchall()
 
+        if not records:
+        return render_template('StudLogin.html', login_failed=True)
+        
         if records and records[0][4] != studIc:
             return render_template('StudLogin.html', login_failed=True)
         else:
