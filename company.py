@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from pymysql import connections
 import os
 import boto3
+from botocore.exceptions import ClientError
 from config import *
 
 app = Flask(__name__)
@@ -19,6 +20,7 @@ db_conn = connections.Connection(
 )
 output = {}
 table = 'company'
+s3=boto3.client('s3')
 
 
 #if call / then will redirect to that pg
