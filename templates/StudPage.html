@@ -5,10 +5,14 @@
     <meta name="keywords" content="Welcome : Marcus Baker">
     <meta name="description" content="">
     <title>StudPage</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="StudPage.css" media="screen">
-    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='nicepage.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='AdminLogin.css')}}">
+
+    <!-- <link rel="stylesheet" href="nicepage.css" media="screen"> -->
+    <!-- <link rel="stylesheet" href="StudPage.css" media="screen"> -->
+    <!-- <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script> -->
+    <!-- <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script> -->
     <meta name="generator" content="Nicepage 5.17.1, nicepage.com">
     <meta name="referrer" content="origin">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -24,8 +28,21 @@
     <meta name="theme-color" content="#478ac9">
     <meta property="og:title" content="StudPage">
     <meta property="og:type" content="website">
-  <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
-  <body class="u-body u-xl-mode" data-lang="en"><header class="u-black u-clearfix u-header u-header" id="sec-519f"><div class="u-clearfix u-sheet u-sheet-1">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+
+<!-- Body start here -->
+  <body class="u-body u-xl-mode" data-lang="en">
+    <header class="u-black u-clearfix u-header u-header" id="sec-519f">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        
+      {% if invalid_error %}
+      <script>
+        alert("You haven't sign up an account. Please sign up.");
+      </script>
+      {% endif %}
+
+      
         <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
           <div class="menu-collapse u-custom-font u-font-merriweather" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -76,12 +93,16 @@
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
           </div>
         </nav>
-      </div></header>
+      </div>
+    </header>
+    <!-- Header ends here -->
+    <!-- Content starts -->
     <section class="skrollable u-clearfix u-parallax u-section-1" id="sec-729c">
       <div class="u-clearfix u-sheet u-sheet-1">
         <quillbot-extension style="position: absolute; top: 0px; left: 0px; pointer-events: none;"></quillbot-extension>
         <quillbot-extension-highlights style="position: absolute; top: 0px; left: 0px; pointer-events: none;"></quillbot-extension-highlights>
-        <h2 class="u-custom-font u-font-merriweather u-text u-text-1">Welcome : Marcus Baker</h2>
+        <h2 class="u-custom-font u-font-merriweather u-text u-text-1">Welcome : {{student[0][2]}}</h2>   
+        <!-- put name via variable -->
         <div class="u-table u-table-responsive u-table-1">
           <grammarly-extension style="position: absolute; top: 0px; left: 0px; pointer-events: none;" class="dnXmp"></grammarly-extension>
           <grammarly-extension style="position: absolute; top: 0px; left: 0px; pointer-events: none;" class="dnXmp"></grammarly-extension>
@@ -136,26 +157,20 @@
             </colgroup>
             <thead class="u-custom-font u-font-merriweather u-palette-5-light-2 u-table-header u-table-header-1">
               <tr style="height: 26px;">
-                <th class="u-table-cell u-table-cell-1">Summary</th>
+                <th class="u-table-cell u-table-cell-1">Internship Details</th>
                 <th class="u-table-cell"></th>
               </tr>
             </thead>
             <tbody class="u-align-left u-custom-font u-font-merriweather u-table-body u-table-body-1">
               <tr style="height: 48px;">
                 <td class="u-align-right u-table-cell u-table-cell-3">Cohort</td>
-                <td class="u-table-cell"> JUNE 2021 YR1 ENTRY (20/11/2023-5/5/2024)</td>
+                <td class="u-table-cell">{{student[0][0]}}</td>
+                <!-- put cohort -->
               </tr>
               <tr style="height: 26px;">
                 <td class="u-align-right u-table-cell u-table-cell-5">Intern Period</td>
-                <td class="u-table-cell">20 Nov 2023 - 05 May 2024</td>
-              </tr>
-              <tr style="height: 34px;">
-                <td class="u-align-right u-table-cell u-table-cell-7">Status</td>
-                <td class="u-table-cell">Pending</td>
-              </tr>
-              <tr style="height: 46px;">
-                <td class="u-align-right u-table-cell u-table-cell-9">Remark</td>
-                <td class="u-table-cell"></td>
+                <td class="u-table-cell">{{student[0][1]}}</td>
+                <!-- put intern period -->
               </tr>
             </tbody>
           </table>
@@ -169,7 +184,7 @@
             </colgroup>
             <thead class="u-custom-font u-font-merriweather u-palette-5-light-2 u-table-header u-table-header-2">
               <tr style="height: 30px;">
-                <th class="u-table-cell u-table-cell-11">Student Detail </th>
+                <th class="u-table-cell u-table-cell-11">Student Details</th>
                 <th class="u-table-cell"></th>
               </tr>
             </thead>
@@ -178,32 +193,39 @@
                 <td class="u-align-right u-table-cell u-table-cell-13">
                   <span style="font-size: 1.25rem;">Student Name</span>
                 </td>
-                <td class="u-table-cell">Marcus Baker</td>
+                <td class="u-table-cell">{{student[0][2]}}</td>
+                <!-- put value -->
               </tr>
               <tr style="height: 26px;">
                 <td class="u-align-right u-table-cell u-table-cell-15"> Student ID</td>
-                <td class="u-table-cell">20WMR01234</td>
+                <td class="u-table-cell">{{student[0][3]}}</td>
+                 <!-- put id -->
               </tr>
               <tr style="height: 34px;">
                 <td class="u-align-right u-table-cell u-table-cell-17"> NRIC No.</td>
-                <td class="u-table-cell">020304-10-1302</td>
+                <td class="u-table-cell">{{student[0][4]}}</td>
+                 <!-- put IC -->
               </tr>
               <tr style="height: 46px;">
                 <td class="u-align-right u-table-cell u-table-cell-19"> Gender</td>
-                <td class="u-table-cell">M</td>
+                <td class="u-table-cell">{{student[0][5]}}</td>
+                 <!-- put gender -->
               </tr>
               <tr style="height: 58px;">
                 <td class="u-align-right u-table-cell u-table-cell-21"> Programme</td>
-                <td class="u-table-cell">RSD</td>
+                <td class="u-table-cell">{{student[0][6]}}</td>
+                 <!-- put programme -->
               </tr>
               <tr style="height: 58px;">
                 <td class="u-align-right u-table-cell u-table-cell-23"> Student Email</td>
-                <td class="u-table-cell">bakerm-wm20@student.tarc.edu.my<br>
+                <td class="u-table-cell">{{student[0][7]}}<br>
+                   <!-- put email -->
                 </td>
               </tr>
               <tr style="height: 64px;">
-                <td class="u-align-right u-table-cell u-table-cell-25"> Mobile Number</td>
-                <td class="u-table-cell">012-3456789</td>
+                <td class="u-align-right u-table-cell u-table-cell-25"> Contact Number</td>
+                <td class="u-table-cell">{{student[0][8]}}</td>
+                 <!-- put contact -->
               </tr>
             </tbody>
           </table>
@@ -216,80 +238,84 @@
             </colgroup>
             <thead class="u-custom-font u-font-merriweather u-palette-5-light-2 u-table-header u-table-header-3">
               <tr style="height: 26px;">
-                <th class="u-table-cell u-table-cell-27"> UC Supervisor</th>
+                <th class="u-table-cell u-table-cell-27"> Academic Supervisor</th>
                 <th class="u-table-cell"></th>
+                
               </tr>
             </thead>
             <tbody class="u-align-left u-custom-font u-font-merriweather u-table-body u-table-body-3">
               <tr style="height: 48px;">
                 <td class="u-align-right u-table-cell u-table-cell-29">
-                  <span style="font-size: 1.25rem;"> Uni Supervisor</span>
+                  <span style="font-size: 1.25rem;"> Uni Supervisor Name</span>
                 </td>
-                <td class="u-table-cell"> SANGEETHA A/P VALLO</td>
+                <td class="u-table-cell">{{student[0][9]}}</td>
+                 <!-- put value -->
               </tr>
               <tr style="height: 41px;">
                 <td class="u-align-right u-table-cell u-table-cell-31"> Uni Supervisor Email</td>
                 <td class="u-table-cell">
-                  <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" href="mailto:sangeetha@tarc.edu.my"> sangeetha@tarc.edu.my</a>
+                  <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" href="mailto:sangeetha@tarc.edu.my">{{student[0][10]}}</a>
+                   <!-- put email -->
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="u-palette-5-light-2 u-shape u-shape-rectangle u-shape-1"></div>
-        <p class="u-text u-text-2">Company Detail</p>
+        <p class="u-text u-text-2">Company Details</p>
         <div class="u-form u-form-1">
-          <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form-4">
+
+          <form action="#" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form-4">
             <div class="u-form-group u-label-left">
               <label for="name-e2a4" class="u-label u-label-1">Company Name</label>
-              <input id="name-e2a4" name="company_name" class="u-input u-input-rectangle u-input-1" required="required" type="text">
-            </div>
-            <div class="u-form-group u-form-message u-label-left">
-              <label for="email-e2a4" class="u-label u-label-2">Address</label>
-              <textarea id="email-e2a4" name="company_address" class="u-input u-input-rectangle u-input-2" required="required"></textarea>
+              <input id="name-e2a4" name="companyName" class="u-input u-input-rectangle u-input-1" required="required" type="text">
+               <!-- put update -->
             </div>
             <div class="u-form-group u-label-left u-form-group-3">
               <label for="text-9d37" class="u-label u-label-3">Monthly Allowance</label>
-              <input id="text-9d37" name="monthly_allowance" class="u-input u-input-rectangle u-input-3" type="text">
+              <input id="text-9d37" name="monthlyAllowance" class="u-input u-input-rectangle u-input-3" type="text">
+               <!-- put value -->
             </div>
             <div class="u-form-group u-label-left u-form-group-4">
               <label for="text-5db4" class="u-label u-label-4">Com. Supervisor Name</label>
-              <input type="text" placeholder="" id="text-5db4" name="com_supervisor_name" class="u-input u-input-rectangle u-input-4">
+              <input type="text" placeholder="" id="text-5db4" name="companySvName" class="u-input u-input-rectangle u-input-4">
+               <!-- put value -->
             </div>
             <div class="u-form-group u-label-left u-form-group-5">
               <label for="text-aa42" class="u-label u-label-5">Com. Supervisor Email</label>
-              <input type="text" placeholder="" id="text-aa42" name="com_supervisor_email" class="u-input u-input-rectangle u-input-5">
+              <input type="text" placeholder="" id="text-aa42" name="companySvEmail" class="u-input u-input-rectangle u-input-5">
+               <!-- put value -->
             </div>
             <div class="u-form-group u-label-left u-form-group-6">
               <label for="text-1365" class="u-label u-label-6">Com. Acceptance Form</label>
-              <input type="text" placeholder="" id="text-1365" name="com_acceptance_form" class="u-input u-input-rectangle u-input-6">
+              <!-- <input type="submit" value="Upload" name="companyApForm" class="u-form-control-hidden"> -->
+              <a href="/studPage?studId={{ student[0][3] }}" name="companyApForm" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-3">Upload</a>
             </div>
             <div class="u-form-group u-form-textarea u-label-left u-form-group-7">
               <label for="textarea-7e79" class="u-label u-label-7">Parent Ack. Form</label>
-              <input id="textarea-7e79" name="parent_ack_form" class="u-input u-input-rectangle u-input-7" required="required" type="text">
+              <!-- <input type="submit" value="Upload" name="parentAckForm" class="u-form-control-hidden"> -->
+              <a href="/studPage?studId={{ student[0][3] }}" name="parentAckForm" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-3">Upload</a>
             </div>
             <div class="u-form-group u-label-left u-form-group-8">
               <label for="text-c223" class="u-label u-label-8">Letter of Indemnity</label>
-              <input type="text" placeholder="" id="text-c223" name="letter_of_indemnity" class="u-input u-input-rectangle u-input-8">
+              <!-- <input type="submit" value="Upload" name="letterOIdt" class="u-form-control-hidden"> -->
+              <a href="/studPage?studId={{ student[0][3] }}" name="letterOIdt" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-3">Upload</a>
             </div>
             <div class="u-form-group u-label-left u-form-group-9">
               <label for="text-68ad" class="u-label u-label-9">Hired evidence (if any)</label>
-              <input type="text" placeholder="" id="text-68ad" name="hired_evident" class="u-input u-input-rectangle u-input-9">
+              <!-- <input type="submit" value="Upload" name="hiredEvid" class="u-form-control-hidden"> -->
+              <a href="/studPage?studId={{ student[0][3] }}" name="hiredEvid" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-3">Upload</a>
             </div>
-            <div class="u-align-center u-form-group u-form-submit">
-              <a href="#" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">save and submit</a>
-              <input type="submit" value="submit" class="u-form-control-hidden">
-            </div>
+            <!-- <div class="u-align-center u-form-group u-form-submit">
+              <input type="submit" value="save and submit" class="u-form-control-hidden">
+               /approveCompany?companyName={{ row[0] }}&adminEmail={{ admin[0][1] }}
+            </div> -->
             <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
             <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
             <input type="hidden" value="" name="recaptchaResponse">
             <input type="hidden" name="formServices" value="">
           </form>
         </div>
-        <a href="https://nicepage.com/joomla-templates" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-3">Upload</a>
-        <a href="https://nicepage.com/joomla-templates" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-4">Upload</a>
-        <a href="https://nicepage.com/joomla-templates" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-5">Upload</a>
-        <a href="https://nicepage.com/joomla-templates" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-6">Upload</a>
       </div>
     </section>
     
