@@ -59,9 +59,68 @@ def companyReg():
     finally:
         cursor.close()
 
-    return render_template('CompanyLogin.html')
+    return render_template('CompanyRegister.html', registerSuccessful=True)
+
+@app.route("/studViewCompany")
+def studViewCompany():
+    status = "Approved"
+
+    fetch_company_sql = "SELECT * FROM company WHERE status = %s"
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(fetch_company_sql, (status))
+        companyRecords = cursor.fetchall()
+    
+        return render_template('StudViewCompany.html', company=companyRecords)    
+
+    except Exception as e:
+        return str(e)      
+
+    finally:
+        cursor.close()
 
 
+@app.route("/studRegister", methods=['POST'])
+def studRegister():
+    cohort = request.form['cohort']
+    internPeriod = request.form['internPeriod']
+    studName = request.form['studName']
+    studId = request.form['studId']
+    studIc = request.form['studIc']
+    studGender = request.form['studGender']
+    programme = request.form['programme']
+    studEmail = request.form['studEmail']
+    studContact = request.form['studContact']
+    uniSupervisor = request.form['uniSupervisor']
+    uniEmail = request.form['uniEmail']
+    companyName = ""
+    monthlyAllowance = ""
+    companySvName = ""
+    companySvEmail = ""
+
+   
+    insert_sql = "INSERT INTO student VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+
+     
+
+    try:
+
+        cursor.execute(insert_sql, (cohort, internPeriod, studName, studId, studIc, studGender, programme, studEmail, studContact, uniSupervisor, uniEmail
+                                   ,companyName ,monthlyAllowance ,companySvName, companySvEmail))
+        db_conn.commit()
+        
+
+    except Exception as e:
+        return str(e) 
+        
+
+    finally:
+        cursor.close()
+
+    print("all modification done...")
+    return render_template('StudRegister.html', studRegisterSuccessfully = True)
 
 @app.route("/adminLogin", methods=['GET', 'POST'])
 def adminLogin():
@@ -176,6 +235,10 @@ def toCompanyLogin():
 @app.route("/toCompanyRegister")
 def toCompanyRegister():
     return render_template('CompanyRegister.html') 
+
+@app.route("/toStudRegister")
+def toStudRegister():
+    return render_template('StudRegister.html') 
 
 @app.route("/companyLogin", methods=['GET', 'POST'])
 def companyLogin():
