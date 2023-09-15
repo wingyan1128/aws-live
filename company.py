@@ -27,7 +27,7 @@ s3=boto3.client('s3')
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('CompanyRegister.html')
+    return render_template('StudRegister.html')
 
 
 @app.route("/companyReg", methods=['POST'])
