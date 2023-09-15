@@ -109,6 +109,45 @@ def companyLogin():
     finally:
         cursor.close()
 
+@app.route("/companyUpload", methods=['GET', 'POST'])
+def companyUpload():
+    companyName = request.args.get('companyName')
+    company_File = request.files['company_File']
+
+    if company_File.filename == "":
+        return render_template('CompanyPage.html', no_file_uploaded=True)
+    
+    fetch_company_sql = "SELECT * FROM company WHERE companyName = %s"
+    cursor = db_conn.cursor()
+    
+
+    try:
+        cursor.execute(fetch_company_sql, (companyName))
+        companyRecord = cursor.fetchone()
+        company_filename_in_s3 = str(companyName) + "_file.pdf"
+        s3 = boto3.resource('s3')
+        s3.Bucket(custombucket).put_object(Key=company_filename_in_s3, Body=company_File)
+        bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+        s3_location = (bucket_location['LocationConstraint'])
+
+        if s3_location is None:
+            s3_location = ''
+        else:
+            s3_location = '-' + s3_location
+
+        object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+            s3_location,
+            custombucket,
+            company_filename_in_s3)
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+    
+    return render_template('CompanyPage.html', company=companyRecord)
+
 @app.route("/studViewCompany")
 def studViewCompany():
     status = "Approved"
