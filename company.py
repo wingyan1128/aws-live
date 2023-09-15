@@ -119,7 +119,6 @@ def studRegister():
     finally:
         cursor.close()
 
-    print("all modification done...")
     return render_template('StudRegister.html', studRegisterSuccessfully = True)
 
 @app.route("/adminLogin", methods=['GET', 'POST'])
