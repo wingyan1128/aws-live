@@ -206,7 +206,7 @@ def studRegister():
     finally:
         cursor.close()
 
-    return render_template('StudRegister.html', studRegisterSuccessfully = True)
+    return render_template('StudLogin.html', studRegisterSuccessfully = True)
 
 
 @app.route("/studLogin", methods=['GET', 'POST'])
