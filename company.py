@@ -61,6 +61,52 @@ def companyReg():
 
     return render_template('CompanyRegister.html', registerSuccessful=True)
 
+
+@app.route("/companyLogin", methods=['GET','POST'])
+def companyLogin():
+    companyEmail = request.form['companyEmail']
+    companyPassword = request.form['companyPassword']
+    company_filename_in_s3 = str(companyEmail) + "_file.pdf"
+    expiration = 3600
+    
+    fetch_company_sql = "SELECT * FROM company WHERE companyEmail = %s"
+    cursor = db_conn.cursor()
+
+    if companyEmail == "" and companyPassword == "":
+        return render_template('CompanyLogin.html', empty_field=True)
+
+    try:
+        cursor.execute(fetch_company_sql, (companyEmail))
+        companyRecord = cursor.fetchone()
+
+        if not companyRecord:
+            return render_template('CompanyLogin.html', no_record=True)
+
+        if companyRecord[8] != "Approved":
+            return render_template('CompanyLogin.html', not_Approved=True)
+
+        if companyRecord[7] != companyPassword:
+            return render_template('CompanyLogin.html', login_failed=True)
+        else:
+            try:
+                response = s3.generate_presigned_url('get_object',
+                                                    Params={'Bucket': custombucket,
+                                                            'Key': company_filename_in_s3},
+                                                    ExpiresIn=expiration)
+            except ClientError as e:
+                logging.error(e)
+
+            if response is None:
+                return render_template('CompanyPage.html', company = companyRecord, no_file = True)
+            else:
+                return render_template('CompanyPage.html', company = companyRecord, url = response)
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
 @app.route("/studViewCompany")
 def studViewCompany():
     status = "Approved"
