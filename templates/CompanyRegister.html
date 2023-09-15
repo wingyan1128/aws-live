@@ -50,6 +50,11 @@
 </head>
 
 <body class="u-body u-xl-mode" data-lang="en">
+       {% if registerSuccessful %}
+    <script>
+        alert("Register successfully.");
+    </script>
+    {% endif %}
   <header class="u-black u-clearfix u-header u-header" id="sec-519f">
     <div class="u-clearfix u-sheet u-sheet-1">
       <ul id="nav">
@@ -80,7 +85,7 @@
           name="form-4" method="post">
 
           <div class="u-form-group u-label-left u-form-group-4">
-            <label for="text-4e59" class="u-label">Company Name</label>
+            <label style"color: red;" for="text-4e59" class="u-label">Company Name</label>
             <input type="text" placeholder="" id="text-4e59" name="companyName" class="u-input u-input-rectangle">
           </div>
 
@@ -123,10 +128,8 @@
             <label for="text-4bb8" class="u-label">Password</label>
             <input type="text" id="text-4bb8" name="companyPassword" class="u-input u-input-rectangle">
           </div>
-          
-          
       </div>
-      <div class="u-align-justify u-border-2 u-border-palette-5-base u-container-style u-group u-group-2">
+      <div class="u-align-justify u-border-2 u-border-palette-5-base u-container-style u-group u-group-2" style=" margin: 11px 36px 11px;">
         <div class="u-container-layout u-container-layout-2">
           <div class="u-container-style u-expanded-width u-group u-palette-5-light-2 u-shape-rectangle u-group-3">
             <div class="u-container-layout u-container-layout-3">
@@ -153,10 +156,9 @@
             website. ​TAR UC ITP has the right, but not the obligation, to monitor your use and access of this site
           </p>
           <button type="submit"
-            class="u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-radius-5 u-btn-2">I Accept</button>
+            class="u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-radius-5 u-btn-2" style="margin: 11px 502px 11px;">I Accept</button>
         </form>
-
-          <a href="/companyLogin" class="u-border-none u-btn u-btn-round u-button-style u-palette-2-base u-radius-5 u-btn-3" type="submit" >I decline</a>
+		<a href="/companyLogin" class="u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-radius-5 u-btn-2" style="color: red; margin: 11px 500px 11px;">I decline</a>
         </div>
       </div>
     </div>
