@@ -285,36 +285,7 @@ def toCompanyRegister():
 def toStudRegister():
     return render_template('StudRegister.html') 
 
-@app.route("/companyLogin", methods=['GET', 'POST'])
-def companyLogin():
-    companyEmail = request.form['companyEmail']
-    companyPassword = request.form['companyPassword']
-    status = "Approved"
 
-    fetch_company_sql = "SELECT * FROM company WHERE companyEmail = %s"
-    cursor = db_conn.cursor()
-
-    if companyEmail == "" and companyPassword == "":
-        return render_template('CompanyLogin.html', empty_field=True)
-
-    try:
-        cursor.execute(fetch_company_sql, (companyEmail,))
-        records = cursor.fetchall()
-
-        if not records:
-            return render_template('CompanyLogin.html', login_failed=True)
-        if records[0][7] != companyPassword:
-            return render_template('CompanyLogin.html', login_failed=True)
-        elif records[0][8] != status:
-            return render_template('CompanyLogin.html', inactive_acc=True)
-        else:
-            return render_template('CompanyPage.html', company=records)
-
-    except Exception as e:
-        return str(e)
-
-    finally:
-        cursor.close()
 
 
 if __name__ == '__main__':
