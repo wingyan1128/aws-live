@@ -232,8 +232,8 @@ def studLogin():
         # companyRecords = cursor.fetchall()
 
         if not records:
-        return render_template('StudLogin.html', login_failed=True)
-        
+            return render_template('StudLogin.html', login_failed=True)
+
         if records and records[0][4] != studIc:
             return render_template('StudLogin.html', login_failed=True)
         else:
