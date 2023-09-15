@@ -51,6 +51,12 @@
   <header class="u-black u-clearfix u-header u-header" id="sec-519f">
     <div class="u-clearfix u-sheet u-sheet-1">
 
+{% if studRegisterSuccessfully %}
+    <script>
+        alert("Register successfully.");
+    </script>
+    {% endif %}
+	    
       {% if login_failed %}
       <script>
         alert("Invalid email address or IC numbers. Please try again.");
