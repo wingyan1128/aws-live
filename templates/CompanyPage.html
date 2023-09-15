@@ -197,7 +197,13 @@
             <tr style="height: 64px;">
               <td class="u-align-right u-table-cell u-table-cell-15"> </td>
               <td class="u-align-right u-table-cell u-table-cell-17">
-                <input type=file name="company_File" style="height:25px;font-size:14pt;color:grey;">
+
+		<form action="/companyUpload" method="POST" enctype="multipart/form-data">
+    		<input type=file name="company_File" style="height:25px;font-size:14pt;color:grey;">
+    		<input type=submimt value="Upload">
+		</form>
+		      
+		      
                 <a href="/companyUpload?companyName={{ company[0] }}"
                   class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-1">Upload</a>
               </td>
