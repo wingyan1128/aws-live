@@ -21,6 +21,7 @@ db_conn = connections.Connection(
 output = {}
 table = 'company'
 s3=boto3.client('s3')
+s4 = boto3.client('s3')
 
 
 #if call / then will redirect to that pg
@@ -61,7 +62,7 @@ def svLogin():
 
         # Generate URLs for student files from S3
         student_records_urls = []
-        file_names = ["com_acceptance_form", "parent_ack_form", "letter_of_indemnity", "hired_evidence"]
+        file_names = ["file1", "file2", "file3", "file4"]
         expiration = 3600
 
         for student in student_records:
@@ -70,8 +71,9 @@ def svLogin():
             object_prefix = str(student_id)
             # assuming the files are saved in this form at student page
             # eg/ 21WMR01091_com_acceptance_form.pdf
+            #file1 = "stud-id-" + str(studId) + "_file1.pdf"
             for file_name in file_names:
-                object_key = str(object_prefix) + "_" + str(file_name) + ".pdf"
+                object_key = "stud-id-" + str(object_prefix) + "_" + str(file_name) + ".pdf"
                 response = s3.generate_presigned_url(
                     'get_object',
                     Params={
