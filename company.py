@@ -3,6 +3,7 @@ from pymysql import connections
 import os
 import boto3
 from botocore.exceptions import ClientError
+from botocore.exceptions import NoCredentialsError
 from config import *
 
 app = Flask(__name__)
@@ -49,8 +50,6 @@ def svLogin():
         cursor.execute(fetch_supervisor_sql, (svEmail,))
         supervisor_records = cursor.fetchall()
 
-        print(supervisor_records)
-
         if not supervisor_records:
             return render_template('StaffLogin.html', login_failed=True)
 
@@ -69,20 +68,35 @@ def svLogin():
             student_id = student[1]
             student_urls = []
             object_prefix = str(student_id)
+            
             # assuming the files are saved in this form at student page
             # eg/ 21WMR01091_com_acceptance_form.pdf
             #file1 = "stud-id-" + str(studId) + "_file1.pdf"
+            
             for file_name in file_names:
                 object_key = "stud-id-" + str(object_prefix) + "_" + str(file_name) + ".pdf"
-                response = s3.generate_presigned_url(
-                    'get_object',
-                    Params={
-                        'Bucket': custombucket,
-                        'Key': object_key
-                    },
-                    ExpiresIn=expiration
-                )
-                student_urls.append(response)  # Add the URL to the student's URL list
+               
+                try:
+                # Check if the file exists in S3
+                    s3.head_object(Bucket=custombucket, Key=object_key)
+
+                # If the file exists, generate a presigned URL
+                    response = s3.generate_presigned_url(
+                        'get_object',
+                        Params={
+                            'Bucket': custombucket,
+                            'Key': object_key
+                        },
+                        ExpiresIn=expiration
+                    )
+                    student_urls.append(response)  # Add the URL to the student's URL list
+
+                except NoCredentialsError:
+                    return "AWS credentials not available."
+                except s3.exceptions.NoSuchKey:
+                    # The file doesn't exist, you can handle this case if needed
+                    response = "none"
+                    student_urls.append(response)
             
             student_records_urls.append(student_urls)  # Add the student's URL list to the 2D table
 
