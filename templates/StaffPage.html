@@ -108,10 +108,9 @@
                 <tbody class="u-align-left u-custom-font u-font-merriweather u-table-body u-table-body-2">
 
 		    <!-- Iterate over each student in the 'students' list -->
-{% set rowCount = 0 %}
 {% set colCount = 0 %}
 {% for student in students %}
-    
+    {% set rowCount = students.index(student) %}
 <tr style="height: 49px;">
     <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-15">Student ID</td>
     <td class="u-border-1 u-border-black u-table-cell">{{ student[1] }}</td>
@@ -186,7 +185,6 @@
     <td colspan="2"><hr></td>
 </tr>
 <!-- End of additional student information -->
-{% set rowCount = students.index(student) + 1 %}
 {% set colCount = 0 %}
 {% endfor %}
                 </tbody>
