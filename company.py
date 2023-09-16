@@ -124,9 +124,6 @@ def companyReg():
 
     return render_template('CompanyRegister.html', registerSuccessful=True)
 
-@app.route("/toSvLogin")
-def toSvLogin():
-    return render_template('StaffLogin.html') 
 
 @app.route("/companyLogin", methods=['GET','POST'])
 def companyLogin():
@@ -313,10 +310,8 @@ def studLogin():
 
 
     fetch_student_sql = "SELECT * FROM student WHERE studEmail = %s"
-    #fetch_company_sql = "SELECT * FROM company WHERE status = %s"
     cursor = db_conn.cursor()
 
-    
     if studEmail == "" and studIc == "":
         return render_template('StudLogin.html', empty_field=True)
 
@@ -328,9 +323,8 @@ def studLogin():
         # companyRecords = cursor.fetchall()
 
         if not records:
-            return render_template('StudLogin.html', login_failed=True)
-
-        if records and records[0][4] != studIc:
+            return render_template('StudLogin.html', not_exist=True)
+        elif records[0][4] != studIc:
             return render_template('StudLogin.html', login_failed=True)
         else:
             return render_template('StudPage.html', student=records)
@@ -342,53 +336,47 @@ def studLogin():
         cursor.close()
 
 
-@app.route("/studPage", methods=['GET','POST'])
+@app.route("/studPage", methods=['POST'])
 def studPage():
-    # cohort = request.form['cohort']
-    # internPeriod = request.form['internPeriod']
-    # studName = request.form['studName']
-    # studId = request.form['studId']
-    # studIc = request.form['studIc']
-    # studGender = request.form['studGender']
-    # programme = request.form['programme']
-    #studEmail = request.form['studEmail']
-    # studContact = request.form['studContact']
-    # uniSupervisor = request.form['uniSupervisor']
-    # uniEmail = request.form['uniEmail']
+
     companyName = request.form['companyName']
-    companyAllowance = request.form['companyAllowance']
+    monthlyAllowance = request.form['monthlyAllowance']
     companySvName = request.form['companySvName']
     companySvEmail = request.form['companySvEmail']
-    studId = request.args.get('studId')
+    studId = request.form['studId']
     companyApForm = request.files['companyApForm']
     parentAckForm = request.files['parentAckForm']
     letterOIdt = request.files['letterOIdt']
     hiredEvid = request.files['hiredEvid']
+    expiration = 3600
     
-
-    #fetch_student_sql = "SELECT * FROM student WHERE studId = %s"
-    sql = "UPDATE student SET companyName = %s AND companyAllowance = %s AND companySvName = %s AND companySvEmail = %s WHERE studId = %s"
+    sql = "UPDATE student SET companyName = %s, monthlyAllowance = %s, companySvName = %s, companySvEmail = %s WHERE studId = %s"
+    fetch_student_sql = "SELECT * FROM student WHERE studId = %s"
     cursor = db_conn.cursor()
 
     try:
-        # cursor.execute(fetch_student_sql, (studId))
-        # records = cursor.fetchall()
-
-        # if records == "":
-        #     return render_template('studPage.html', invalid_error=True)
-        cursor.execute(sql, (companyName, companyAllowance,companySvName, companySvEmail, studId,))
+        cursor.execute(sql, (companyName, monthlyAllowance, companySvName, companySvEmail, studId))
+        cursor.execute(fetch_student_sql, (studId))
+        records = cursor.fetchall()
         db_conn.commit()
-       
+        
         # Uplaod image file in S3 #
-        emp_image_file_name_in_s3 = "stud-id-" + str(studId) + "_file.pnf"
+        file1 = "stud-id-" + str(studId) + "_file1.pdf"
+        file2 = "stud-id-" + str(studId) + "_file2.pdf"
+        file3 = "stud-id-" + str(studId) + "_file3.pdf"
+        file4 = "stud-id-" + str(studId) + "_file4.pdf"
         s3 = boto3.resource('s3')
 
         try:
-            print("Data inserted in MySQL RDS... uploading files to S3...")
-            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=companyApForm)
-            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=parentAckForm)
-            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=letterOIdt)
-            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=hiredEvid)
+            
+            if companyApForm.filename !="" and parentAckForm.filename !="" and letterOIdt.filename !="" and hiredEvid.filename !="":
+                s3.Bucket(custombucket).put_object(Key=file1, Body=companyApForm)
+                s3.Bucket(custombucket).put_object(Key=file2, Body=parentAckForm)
+                s3.Bucket(custombucket).put_object(Key=file3, Body=letterOIdt)
+                s3.Bucket(custombucket).put_object(Key=file4, Body=hiredEvid)
+            else:
+                 return render_template('StudPage.html', files_empty=True)
+
             bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
             s3_location = (bucket_location['LocationConstraint'])
 
@@ -400,16 +388,45 @@ def studPage():
             object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
                 s3_location,
                 custombucket,
-                emp_image_file_name_in_s3)
+                file1)
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                file2)
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                file3)
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                file4)
+
+        
+            response1 = s4.generate_presigned_url('get_object',
+                                                Params={'Bucket': custombucket,
+                                                        'Key': file1},
+                                                ExpiresIn=expiration)
+            response2 = s4.generate_presigned_url('get_object',
+                                                Params={'Bucket': custombucket,
+                                                        'Key': file2},
+                                                ExpiresIn=expiration)
+            response3 = s4.generate_presigned_url('get_object',
+                                                Params={'Bucket': custombucket,
+                                                        'Key': file3},
+                                                ExpiresIn=expiration)
+            response4 = s4.generate_presigned_url('get_object',
+                                                Params={'Bucket': custombucket,
+                                                        'Key': file4},
+                                                ExpiresIn=expiration)
 
         except Exception as e:
-            return str(e)
-       
+                return str(e)
+
     finally:
         cursor.close()
 
-    print("all modification done...")
-    return render_template('StudPage.html')
+    return render_template('StudPage.html', student = records, url1=response1, url2=response2, url3=response3, url4=response4, success=True)
 
 
 @app.route("/adminLogin", methods=['GET', 'POST'])
@@ -533,6 +550,10 @@ def toStudRegister():
 @app.route("/toStudLogin")
 def toStudLogin():
     return render_template('StudLogin.html') 
+
+@app.route("/toSvLogin")
+def toSvLogin():
+    return render_template('StaffLogin.html') 
 
 
 
