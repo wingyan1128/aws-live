@@ -101,9 +101,14 @@ def svLogin():
                         student_urls.append(response)
 
             print(student_urls)
-            
-            student_records_urls.append(student_urls)  # Add the student's URL list to the 2D table
 
+            # Check if student_urls has at least 3 elements before appending to student_records_urls
+            if len(student_urls) >= 3:
+                student_records_urls.append(student_urls)  # Add the student's URL list to the 2D table
+            else:
+            # Handle the case where there are not enough elements in student_urls
+                student_records_urls.append(["none"] * len(file_names))  # Add "none" for missing URLs
+            
         return render_template('StaffPage.html', supervisor=supervisor_records[0], students=student_records, urls=student_records_urls)
     except Exception as e:
         app.logger.error(str(e))
