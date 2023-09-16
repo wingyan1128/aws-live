@@ -135,6 +135,7 @@
                         <tr style="height: 49px;">
                             <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-23">Com.Acceptance Form</td>
                             <td class="u-border-1 u-border-black u-table-cell">
+				    <p>{{ urls[rowCount][colCount] }}</p>
                                 {% if urls[rowCount][colCount] == "none" %}
         				<span>No URL available</span>
     				{% else %}
@@ -149,6 +150,7 @@
                         <tr style="height: 58px;">
                             <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-25">Parent Ack.Form</td>
                             <td class="u-border-1 u-border-black u-table-cell">
+				<p>{{ urls[rowCount][colCount] }}</p>
                                 {% if urls[rowCount][colCount] == "none" %}
         				<span>No URL available</span>
     				{% else %}
@@ -163,6 +165,7 @@
                         <tr style="height: 58px;">
                             <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-27">Letter of Indemnity</td>
                             <td class="u-border-1 u-border-black u-table-cell">
+				    <p>{{ urls[rowCount][colCount] }}</p>
                                 {% if urls[rowCount][colCount] == "none" %}
         				<span>No URL available</span>
     				{% else %}
@@ -177,6 +180,7 @@
                         <tr style="height: 84px;">
                             <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-29">Hired evidence</td>
                             <td class="u-border-1 u-border-black u-table-cell">
+				    <p>{{ urls[rowCount][colCount] }}</p>
                                 {% if urls[rowCount][colCount] == "none" %}
         				<span>No URL available</span>
     				{% else %}
@@ -184,9 +188,6 @@
     				{% endif %}
                             </td>
                         </tr>
-
-			
-			{% set colCount = colCount + 1 %}
 			
                         <!-- End of additional student information -->
 			<!-- Add a horizontal line to separate students -->
