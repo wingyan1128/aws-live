@@ -88,10 +88,18 @@ def companyLogin():
         elif companyRecord[7] != companyPassword:
             return render_template('CompanyLogin.html', login_failed=True)
         else:
-        # Check if the file exists in the S3 bucket
-            object_exists = check_if_file_exists_in_s3(custombucket, company_filename_in_s3)
+            # Check if the file exists in the S3 bucket
+            try:
+                s3.head_object(Bucket=custombucket, Key=company_filename_in_s3)
+                file_exists = True
+            except ClientError as e:
+                if e.response['Error']['Code'] == '404':
+                    file_exists = False
+                else:
+                    logging.error(e)
+                    return str(e)
 
-            if not object_exists:
+            if not file_exists:
                 return render_template('CompanyPage.html', company=companyRecord, file_exist=False)
         
         # Generate a pre-signed URL for downloading the file
