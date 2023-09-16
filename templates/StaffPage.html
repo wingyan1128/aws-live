@@ -186,7 +186,7 @@
     <td colspan="2"><hr></td>
 </tr>
 <!-- End of additional student information -->
-{% set rowCount = rowCount + 1 %}
+{% set rowCount = students.index(student) + 1 %}
 {% set colCount = 0 %}
 {% endfor %}
                 </tbody>
