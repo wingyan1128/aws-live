@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from pymysql import connections
 import os
 import boto3
+import traceback
 from botocore.exceptions import ClientError
 from botocore.exceptions import NoCredentialsError
 from config import *
@@ -103,6 +104,7 @@ def svLogin():
         return render_template('StaffPage.html', supervisor=supervisor_records[0], students=student_records, urls=student_records_urls)
     except Exception as e:
         app.logger.error(str(e))
+        traceback.print_exc()
         return "An error occurred."
     finally:
         cursor.close()
