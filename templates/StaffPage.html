@@ -109,97 +109,90 @@
 
 		    <!-- Iterate over each student in the 'students' list -->
 			{% set rowCount = 0 %}
-			{% set colCount = 0 %}
-                    {% for student in students %}
-		    
-                    <tr style="height: 49px;">
-                        <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-15">Student ID</td>
-                        <td class="u-border-1 u-border-black u-table-cell">{{ student[1] }}</td>
-                    </tr>
-                    <tr style="height: 49px;">
-                        <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-17">Student Name</td>
-                        <td class="u-border-1 u-border-black u-table-cell">{{ student[0]  }}</td>
-                    </tr>
-                    <tr style="height: 25px;">
-                        <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-19">Student Email<span style="font-size: 0.75rem;"></span></td>
-                        <td class="u-border-1 u-border-black u-table-cell">{{ student[3] }}</td>
-                    </tr>
-                    <tr style="height: 49px;">
-                        <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-21">Contact Number</td>
-                        <td class="u-border-1 u-border-black u-table-cell">{{ student[4] }}</td>
-                    </tr>
+{% set colCount = 0 %}
+{% for student in students %}
+    
+<tr style="height: 49px;">
+    <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-15">Student ID</td>
+    <td class="u-border-1 u-border-black u-table-cell">{{ student[1] }}</td>
+</tr>
+<tr style="height: 49px;">
+    <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-17">Student Name</td>
+    <td class="u-border-1 u-border-black u-table-cell">{{ student[0]  }}</td>
+</tr>
+<tr style="height: 25px;">
+    <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-19">Student Email<span style="font-size: 0.75rem;"></span></td>
+    <td class="u-border-1 u-border-black u-table-cell">{{ student[3] }}</td>
+</tr>
+<tr style="height: 49px;">
+    <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-21">Contact Number</td>
+    <td class="u-border-1 u-border-black u-table-cell">{{ student[4] }}</td>
+</tr>
 
+<!-- Additional student information -->
+<tr style="height: 49px;">
+    <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-23">Com.Acceptance Form</td>
+    <td class="u-border-1 u-border-black u-table-cell">
+        <p>{{ urls[rowCount][colCount] }}</p>
+        {% if urls[rowCount][colCount] == "none" %}
+            <span>No URL available</span>
+        {% else %}
+            <a href="{{ urls[rowCount][colCount] }}" target="_blank">Download</a>
+        {% endif %}
+    </td>
+</tr>
 
-			
-                        <!-- Additional student information -->
-                        <tr style="height: 49px;">
-                            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-23">Com.Acceptance Form</td>
-                            <td class="u-border-1 u-border-black u-table-cell">
-				
-                                {% if urls[rowCount][colCount] == "none" %}
-        				<span>No File Uploaded</span>
-    				{% else %}
-       					 <a href="{{ urls[rowCount][colCount] }}" target="_blank">Download</a>
-    				{% endif %}
-                            </td>
-                        </tr>
+{% set colCount = colCount + 1 %}
 
-			
-			{% set colCount = colCount + 1 %}
-			
-                        <tr style="height: 58px;">
-                            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-25">Parent Ack.Form</td>
-                            <td class="u-border-1 u-border-black u-table-cell">
-				
-                                {% if urls[rowCount][colCount] == "none" %}
-        				<span>No File Uploaded</span>
-    				{% else %}
-       					 <a href="{{ urls[rowCount][colCount] }}" target="_blank">Download</a>
-    				{% endif %}
-                            </td>
-                        </tr>
+<tr style="height: 58px;">
+    <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-25">Parent Ack.Form</td>
+    <td class="u-border-1 u-border-black u-table-cell">
+        <p>{{ urls[rowCount][colCount] }}</p>
+        {% if urls[rowCount][colCount] == "none" %}
+            <span>No URL available</span>
+        {% else %}
+            <a href="{{ urls[rowCount][colCount] }}" target="_blank">Download</a>
+        {% endif %}
+    </td>
+</tr>
 
-			
-			{% set colCount = colCount + 1 %}
-			
-                        <tr style="height: 58px;">
-                            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-27">Letter of Indemnity</td>
-                            <td class="u-border-1 u-border-black u-table-cell">
-				    
-                                {% if urls[rowCount][colCount] == "none" %}
-        				<span>No File Uploaded</span>
-    				{% else %}
-       					 <a href="{{ urls[rowCount][colCount] }}" target="_blank">Download</a>
-    				{% endif %}
-                            </td>
-                        </tr>
+{% set colCount = colCount + 1 %}
 
-			
-			{% set colCount = colCount + 1 %}
-			
-                        <tr style="height: 84px;">
-                            <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-29">Hired evidence</td>
-                            <td class="u-border-1 u-border-black u-table-cell">
-		
-                                {% if urls[rowCount][colCount] == "none" %}
-        				<span>No File Uploaded</span>
-    				{% else %}
-       					 <a href="{{ urls[rowCount][colCount] }}" target="_blank">Download</a>
-    				{% endif %}
-                            </td>
-                        </tr>
-			
-                        <!-- End of additional student information -->
-			<!-- Add a horizontal line to separate students -->
-                    <tr>
-                        <td colspan="2"><hr></td>
-                    </tr>
-                    </tr>
-                    <!-- End of additional student information -->
-		    {% set rowCount = rowCount + 1 %}
-		    {% set colCount = 0 %}
-		          
-                    {% endfor %}
+<tr style="height: 58px;">
+    <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-27">Letter of Indemnity</td>
+    <td class="u-border-1 u-border-black u-table-cell">
+        <p>{{ urls[rowCount][colCount] }}</p>
+        {% if urls[rowCount][colCount] == "none" %}
+            <span>No URL available</span>
+        {% else %}
+            <a href="{{ urls[rowCount][colCount] }}" target="_blank">Download</a>
+        {% endif %}
+    </td>
+</tr>
+
+{% set colCount = colCount + 1 %}
+
+<tr style="height: 84px;">
+    <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-29">Hired evidence</td>
+    <td class="u-border-1 u-border-black u-table-cell">
+        <p>{{ urls[rowCount][colCount] }}</p>
+        {% if urls[rowCount][colCount] == "none" %}
+            <span>No URL available</span>
+        {% else %}
+            <a href="{{ urls[rowCount][colCount] }}" target="_blank">Download</a>
+        {% endif %}
+    </td>
+</tr>
+
+<!-- End of additional student information -->
+<!-- Add a horizontal line to separate students -->
+<tr>
+    <td colspan="2"><hr></td>
+</tr>
+<!-- End of additional student information -->
+{% set rowCount = rowCount + 1 %}
+{% set colCount = 0 %}
+{% endfor %}
                 </tbody>
             </table>
         </div>
