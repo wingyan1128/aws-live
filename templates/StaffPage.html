@@ -108,6 +108,8 @@
                 <tbody class="u-align-left u-custom-font u-font-merriweather u-table-body u-table-body-2">
 
 		    <!-- Iterate over each student in the 'students' list -->
+			{% set rowCount = 0 %}
+			{% set colCount = 0 %}
                     {% for student in students %}
 		    
                     <tr style="height: 49px;">
@@ -128,8 +130,7 @@
                     </tr>
 
 
-			{% set rowCount = 0 %}
-			{% set colCount = 0 %}
+			
                         <!-- Additional student information -->
                         <tr style="height: 49px;">
                             <td class="u-align-right u-border-1 u-border-black u-table-cell u-table-cell-23">Com.Acceptance Form</td>
@@ -142,7 +143,7 @@
                             </td>
                         </tr>
 
-			{% set rowCount = rowCount + 1 %}
+			
 			{% set colCount = colCount + 1 %}
 			
                         <tr style="height: 58px;">
@@ -156,7 +157,7 @@
                             </td>
                         </tr>
 
-			{% set rowCount = rowCount + 1 %}
+			
 			{% set colCount = colCount + 1 %}
 			
                         <tr style="height: 58px;">
@@ -170,7 +171,7 @@
                             </td>
                         </tr>
 
-			{% set rowCount = rowCount + 1 %}
+			
 			{% set colCount = colCount + 1 %}
 			
                         <tr style="height: 84px;">
@@ -184,7 +185,7 @@
                             </td>
                         </tr>
 
-			{% set rowCount = rowCount + 1 %}
+			
 			{% set colCount = colCount + 1 %}
 			
                         <!-- End of additional student information -->
@@ -194,6 +195,8 @@
                     </tr>
                     </tr>
                     <!-- End of additional student information -->
+		    {% set rowCount = rowCount + 1 %}
+		    {% set colCount = 0 %}
 		          
                     {% endfor %}
                 </tbody>
