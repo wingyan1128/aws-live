@@ -83,25 +83,27 @@ def companyLogin():
 
         if not companyRecord:
             return render_template('CompanyLogin.html', no_record=True)
-
-        if companyRecord[8] != "Approved":
+        elif companyRecord[8] != "Approved":
             return render_template('CompanyLogin.html', not_Approved=True)
-
-        if companyRecord[7] != companyPassword:
+        elif companyRecord[7] != companyPassword:
             return render_template('CompanyLogin.html', login_failed=True)
         else:
+        # Check if the file exists in the S3 bucket
+            object_exists = check_if_file_exists_in_s3(custombucket, company_filename_in_s3)
+
+            if not object_exists:
+                return render_template('CompanyPage.html', company=companyRecord, file_exist=False)
+        
+        # Generate a pre-signed URL for downloading the file
             try:
                 response = s3.generate_presigned_url('get_object',
-                                                    Params={'Bucket': custombucket,
-                                                            'Key': company_filename_in_s3},
-                                                    ExpiresIn=expiration)
+                                                Params={'Bucket': custombucket,
+                                                        'Key': company_filename_in_s3},
+                                                ExpiresIn=expiration)
             except ClientError as e:
                 logging.error(e)
 
-            if response is None:
-                return render_template('CompanyPage.html', company = companyRecord, file_exist = False)
-            else:
-                return render_template('CompanyPage.html', company = companyRecord, file_exist = True, url = response)
+            return render_template('CompanyPage.html', company=companyRecord, file_exist=True, url=response)
 
     except Exception as e:
         return str(e)
@@ -355,7 +357,7 @@ def adminLogin():
 
         if not records:
             return render_template('AdminLogin.html', login_failed=True)
-        if records and records[0][2] != adminPassword:
+        elif records and records[0][2] != adminPassword:
             return render_template('AdminLogin.html', login_failed=True)
         else:
             return render_template('AdminPage.html', admin=records, company=companyRecords)
