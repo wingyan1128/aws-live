@@ -18,7 +18,6 @@
   <link id="u-page-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i">
 
-
 <style>
       #nav {
         list-style-type: none;
@@ -36,6 +35,7 @@
       </style>
 
 
+
   <script type="application/ld+json">{
 		"@context": "http://schema.org",
 		"@type": "Organization",
@@ -51,12 +51,6 @@
   <header class="u-black u-clearfix u-header u-header" id="sec-519f">
     <div class="u-clearfix u-sheet u-sheet-1">
 
-{% if studRegisterSuccessfully %}
-    <script>
-        alert("Register successfully.");
-    </script>
-    {% endif %}
-	    
       {% if login_failed %}
       <script>
         alert("Invalid email address or IC numbers. Please try again.");
@@ -66,6 +60,12 @@
       {% if empty_field %}
       <script>
         alert("Please enter both email address and IC numbers.");
+      </script>
+      {% endif %}
+
+      {% if not_exist %}
+      <script>
+        alert("You haven't sign up an account. Please sign up.");
       </script>
       {% endif %}
 
@@ -115,11 +115,6 @@
             <div class="u-align-left u-btn-submit-container">
             </div>
           </div>
-          <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-          <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try
-            again. </div>
-          <input type="hidden" value="" name="recaptchaResponse">
-          <input type="hidden" name="formServices" value="9d06b8bd-185c-1542-c3b8-56d554f330f6">
         </form>
       </div>
     </div>
