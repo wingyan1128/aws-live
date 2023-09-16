@@ -244,6 +244,7 @@ def companyUpload():
 @app.route("/studViewCompany")
 def studViewCompany():
     status = "Approved"
+    studEmail = request.args.get('studEmail')
 
     fetch_company_sql = "SELECT * FROM company WHERE status = %s"
     cursor = db_conn.cursor()
@@ -252,7 +253,7 @@ def studViewCompany():
         cursor.execute(fetch_company_sql, (status))
         companyRecords = cursor.fetchall()
     
-        return render_template('StudViewCompany.html', company=companyRecords)    
+        return render_template('StudViewCompany.html', company=companyRecords, studEmail=studEmail)    
 
     except Exception as e:
         return str(e)      
