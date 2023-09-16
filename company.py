@@ -27,7 +27,7 @@ s3=boto3.client('s3')
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('StudRegister.html')
+    return render_template('Home.html')
 
 
 @app.route("/companyReg", methods=['POST'])
@@ -99,9 +99,9 @@ def companyLogin():
                 logging.error(e)
 
             if response is None:
-                return render_template('CompanyPage.html', company = companyRecord, no_file = True)
+                return render_template('CompanyPage.html', company = companyRecord, file_exist = False)
             else:
-                return render_template('CompanyPage.html', company = companyRecord, url = response)
+                return render_template('CompanyPage.html', company = companyRecord, file_exist = True, url = response)
 
     except Exception as e:
         return str(e)
@@ -109,44 +109,66 @@ def companyLogin():
     finally:
         cursor.close()
 
-@app.route("/companyUpload", methods=['GET', 'POST'])
+@app.route("/companyUpload", methods=['POST'])
 def companyUpload():
-    companyName = request.args.get('companyName')
+    companyEmail = request.form['companyEmail']
     company_File = request.files['company_File']
-
-    if company_File.filename == "":
-        return render_template('CompanyPage.html', no_file_uploaded=True)
+    company_filename_in_s3 = str(companyEmail) + "_file.pdf"
     
-    fetch_company_sql = "SELECT * FROM company WHERE companyName = %s"
+    fetch_company_sql = "SELECT * FROM company WHERE companyEmail = %s"
     cursor = db_conn.cursor()
     
-
     try:
-        cursor.execute(fetch_company_sql, (companyName))
+        expiration = 3600
+        try:
+            response = s3.generate_presigned_url('get_object',
+                                                Params={'Bucket': custombucket,
+                                                        'Key': company_filename_in_s3},
+                                                ExpiresIn=expiration)
+        except ClientError as e:
+            logging.error(e)
+        cursor.execute(fetch_company_sql, (companyEmail))
         companyRecord = cursor.fetchone()
-        company_filename_in_s3 = str(companyName) + "_file.pdf"
-        s3 = boto3.resource('s3')
-        s3.Bucket(custombucket).put_object(Key=company_filename_in_s3, Body=company_File)
-        bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-        s3_location = (bucket_location['LocationConstraint'])
 
-        if s3_location is None:
-            s3_location = ''
+        if company_File.filename == "":
+            if response is None:
+                return render_template('CompanyPage.html', company=companyRecord, no_file_uploaded=True, file_exist = False)
+            else:
+                return render_template('CompanyPage.html', company=companyRecord, file_exist = True, url = response, no_file_uploaded=True)
         else:
-            s3_location = '-' + s3_location
+            upload = boto3.resource('s3')
+            upload.Bucket(custombucket).put_object(Key=company_filename_in_s3, Body=company_File)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            upload_location = (bucket_location['LocationConstraint'])
 
-        object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-            s3_location,
-            custombucket,
-            company_filename_in_s3)
+            if upload_location is None:
+                upload_location = ''
+            else:
+                upload_location = '-' + upload_location
 
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                upload_location,
+                custombucket,
+                company_filename_in_s3)
+
+            try:
+                response = s3.generate_presigned_url('get_object',
+                                                    Params={'Bucket': custombucket,
+                                                            'Key': company_filename_in_s3},
+                                                    ExpiresIn=expiration)
+            except ClientError as e:
+                logging.error(e)
+
+            if response is None:
+                return render_template('CompanyPage.html', company = companyRecord, file_exist = False)
+            else:
+                return render_template('CompanyPage.html', company = companyRecord, file_exist = True, url = response)
+        
     except Exception as e:
         return str(e)
 
     finally:
         cursor.close()
-    
-    return render_template('CompanyPage.html', company=companyRecord)
 
 @app.route("/studViewCompany")
 def studViewCompany():
