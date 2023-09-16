@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 from pymysql import connections
 import os
 import boto3
-import traceback
 from botocore.exceptions import ClientError
 from botocore.exceptions import NoCredentialsError
 from config import *
@@ -36,8 +35,6 @@ def home():
 def svLogin():
     svEmail = request.form['svEmail']
     svPassword = request.form['svPassword']
-
-    print("svEmail:", svEmail)
 
     fetch_supervisor_sql = "SELECT * FROM supervisor WHERE svEmail = %s"
     fetch_student_sql = "SELECT * FROM student WHERE uniEmail = %s"
@@ -98,13 +95,16 @@ def svLogin():
                     # The file doesn't exist, you can handle this case if needed
                     response = "none"
                     student_urls.append(response)
+                except ClientError as e:
+                    if e.response['Error']['Code'] == '404':
+                        response = "none"
+                        student_urls.append(response)
             
             student_records_urls.append(student_urls)  # Add the student's URL list to the 2D table
 
         return render_template('StaffPage.html', supervisor=supervisor_records[0], students=student_records, urls=student_records_urls)
     except Exception as e:
         app.logger.error(str(e))
-        traceback.print_exc()
         return "An error occurred."
     finally:
         cursor.close()
