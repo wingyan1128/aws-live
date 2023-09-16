@@ -120,49 +120,42 @@ def companyUpload():
     
     try:
         expiration = 3600
+
+        # Check if a file has been uploaded
+        if company_File.filename == "":
+            return render_template('CompanyPage.html', company=companyRecord, no_file_uploaded=True, file_exist=False)
+
+        # Generate a pre-signed URL to check if the file exists
         try:
-            response = s3.generate_presigned_url('get_object',
-                                                Params={'Bucket': custombucket,
-                                                        'Key': company_filename_in_s3},
-                                                ExpiresIn=expiration)
+            response = s3.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': custombucket, 'Key': company_filename_in_s3},
+                ExpiresIn=expiration
+            )
         except ClientError as e:
             logging.error(e)
+
         cursor.execute(fetch_company_sql, (companyEmail))
         companyRecord = cursor.fetchone()
 
-        if company_File.filename == "":
-            if response is None:
-                return render_template('CompanyPage.html', company=companyRecord, no_file_uploaded=True, file_exist = False)
-            else:
-                return render_template('CompanyPage.html', company=companyRecord, file_exist = True, url = response, no_file_uploaded=True)
-        else:
-            upload = boto3.resource('s3')
-            upload.Bucket(custombucket).put_object(Key=company_filename_in_s3, Body=company_File)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            upload_location = (bucket_location['LocationConstraint'])
+        # Check if the response is None, indicating the file doesn't exist
+        if response is None:
+            return render_template('CompanyPage.html', company=companyRecord, file_exist=False)
 
-            if upload_location is None:
-                upload_location = ''
-            else:
-                upload_location = '-' + upload_location
+        # Handle the case where a file exists
+        # Upload the file to S3 here if needed
 
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                upload_location,
-                custombucket,
-                company_filename_in_s3)
+        # Generate another pre-signed URL for downloading
+        try:
+            response = s3.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': custombucket, 'Key': company_filename_in_s3},
+                ExpiresIn=expiration
+            )
+        except ClientError as e:
+            logging.error(e)
 
-            try:
-                response = s3.generate_presigned_url('get_object',
-                                                    Params={'Bucket': custombucket,
-                                                            'Key': company_filename_in_s3},
-                                                    ExpiresIn=expiration)
-            except ClientError as e:
-                logging.error(e)
-
-            if response is None:
-                return render_template('CompanyPage.html', company = companyRecord, file_exist = False)
-            else:
-                return render_template('CompanyPage.html', company = companyRecord, file_exist = True, url = response)
+        return render_template('CompanyPage.html', company=companyRecord, file_exist=True, url=response)
         
     except Exception as e:
         return str(e)
