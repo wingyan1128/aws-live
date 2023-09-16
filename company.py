@@ -99,6 +99,8 @@ def svLogin():
                     if e.response['Error']['Code'] == '404':
                         response = "none"
                         student_urls.append(response)
+
+            print(student_urls)
             
             student_records_urls.append(student_urls)  # Add the student's URL list to the 2D table
 
