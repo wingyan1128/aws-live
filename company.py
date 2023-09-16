@@ -555,9 +555,28 @@ def toStudLogin():
 def toSvLogin():
     return render_template('StaffLogin.html') 
 
+@app.route("/toStudPage")
+def toStudPage():
+
+    studEmail = request.args.get('studEmail')
+   
 
 
+    fetch_student_sql = "SELECT * FROM student WHERE studEmail = %s"
+    cursor = db_conn.cursor()
 
+
+    try:
+        cursor.execute(fetch_student_sql, (studEmail))
+        records = cursor.fetchall()
+
+        return render_template('StudPage.html', student=records)
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
 
 
 
