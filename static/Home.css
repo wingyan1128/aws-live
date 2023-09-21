@@ -1,0 +1,149 @@
+.u-section-1 .u-sheet-1 {
+  min-height: 619px;
+}
+
+.u-section-1 .u-group-1 {
+  width: 1066px;
+  min-height: 383px;
+  height: auto;
+  margin: 16px auto 0;
+}
+
+.u-section-1 .u-container-layout-1 {
+  padding: 0;
+}
+
+.u-section-1 .u-text-1 {
+  font-size: 1.875rem;
+  margin: 30px 369px 0 auto;
+}
+
+.u-section-1 .u-text-2 {
+  font-size: 1.4375rem;
+  line-height: 1.6;
+  margin: 36px auto 0 318px;
+}
+
+.u-section-1 .u-image-1 {
+  width: 175px;
+  height: 219px;
+  margin: -37px auto 0 89px;
+}
+
+.u-section-1 .u-text-3 {
+  transition-duration: 0.5s;
+  font-size: 1.375rem;
+  background-image: none;
+  margin: -182px auto 0 318px;
+}
+
+.u-section-1 .u-text-4 {
+  font-size: 1.25rem;
+  margin: 30px 37px 60px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-group-1 {
+    width: 940px;
+    height: auto;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-right: 296px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-top: 179px;
+    margin-left: 162px;
+  }
+
+  .u-section-1 .u-image-1 {
+    height: 220px;
+    margin-top: -47px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-top: -173px;
+    margin-left: 162px;
+  }
+
+  .u-section-1 .u-text-4 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-group-1 {
+    width: 720px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-right: 222px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-left: 0;
+  }
+
+  .u-section-1 .u-image-1 {
+    margin-top: -84px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-top: -136px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-group-1 {
+    width: 540px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-right: 175px;
+  }
+
+  .u-section-1 .u-text-2 {
+    font-size: 1rem;
+  }
+
+  .u-section-1 .u-image-1 {
+    margin-top: -36px;
+  }
+
+  .u-section-1 .u-text-3 {
+    font-size: 1rem;
+    margin-top: -184px;
+  }
+
+  .u-section-1 .u-text-4 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-group-1 {
+    width: 340px;
+  }
+
+  .u-section-1 .u-text-1 {
+    font-size: 1.5rem;
+    margin-right: 118px;
+  }
+
+  .u-section-1 .u-image-1 {
+    margin-top: -61px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-top: -159px;
+  }
+}
+
+.u-section-1 .u-text-3,
+.u-section-1 .u-text-3:before,
+.u-section-1 .u-text-3 > .u-container-layout:before {
+  transition-property: fill, color, background-color, stroke-width, border-style, border-width, border-top-width, border-left-width, border-right-width, border-bottom-width, custom-border, borders, box-shadow, text-shadow, opacity, border-radius, stroke, border-color, font-size, font-style, font-weight, text-decoration, letter-spacing, transform, background-image, image-zoom, background-size, background-position;
+}

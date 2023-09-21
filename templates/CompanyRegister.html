@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="keywords" content="Student Signup">
+  <meta name="description" content="">
+  <title>CompanyRegister</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='nicepage.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CompanyRegister.css') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+
+
+  <meta name="generator" content="Nicepage 5.17.1, nicepage.com">
+  <meta name="referrer" content="origin">
+  <link id="u-theme-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+  <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i">
+
+
+<style>
+      #nav {
+        list-style-type: none;
+        padding: 0;
+        overflow: hidden;
+      }
+      
+      #link {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      </style>
+
+  <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "WebSite5710610"
+}</script>
+  <meta name="theme-color" content="#478ac9">
+  <meta property="og:title" content="CompanyRegister">
+  <meta property="og:type" content="website">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+
+<body class="u-body u-xl-mode" data-lang="en">
+       {% if registerSuccessful %}
+    <script>
+        alert("Register successfully.");
+    </script>
+    {% endif %}
+  <header class="u-black u-clearfix u-header u-header" id="sec-519f">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <ul id="nav">
+      <li  style="float:left"><a id="link" href="/">Home</a></li>
+      <li  style="float:right"><a id="link" href="/toCompanyLogin">Company</a></li>
+      <li  style="float:right"><a id="link" href="/toSvLogin">Uni Supervisor</a></li>
+      <li  style="float:right"><a id="link" href="/toStudLogin">Student</a></li>
+      <li  style="float:right"><a id="link" href="/toAdminLogin">Admin</a></li>
+    </ul>
+    </div>
+  </header>
+  <section class="u-clearfix u-section-1" id="sec-3c0c">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <div class="u-border-6 u-border-black u-line u-line-horizontal u-line-1"></div>
+      <div class="u-container-style u-group u-group-1">
+        <div class="u-container-layout u-container-layout-1">
+          <h1 class="u-text u-text-body-color u-text-default u-text-1">Company Sign Up</h1>
+          <quillbot-extension
+            style="position: absolute; top: 0px; left: 0px; pointer-events: none;"></quillbot-extension>
+          <quillbot-extension-highlights
+            style="position: absolute; top: 0px; left: 0px; pointer-events: none;"></quillbot-extension-highlights>
+          <div class="u-border-3 u-border-palette-5-light-2 u-line u-line-horizontal u-line-2"></div>
+        </div>
+      </div>
+      <div class="u-form u-form-1">
+        <form action="/companyReg"
+          class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email"
+          name="form-4" method="post">
+
+          <div class="u-form-group u-label-left u-form-group-4">
+            <label style"color: red;" for="text-4e59" class="u-label">Company Name</label>
+            <input type="text" placeholder="" id="text-4e59" name="companyName" class="u-input u-input-rectangle">
+          </div>
+
+          <div class="u-form-email u-form-group u-label-left">
+            <label for="email-e2a4" class="u-label">Email</label>
+            <input type="email" id="email-e2a4" name="companyEmail" class="u-input u-input-rectangle" required="">
+          </div>
+
+
+          <div class="u-form-group u-label-left u-form-group-3">
+            <label for="text-d7ac" class="u-label">Company Contact</label>
+            <input type="text" id="text-d7ac" name="companyContact" class="u-input u-input-rectangle">
+          </div>
+
+          <div class="u-form-group u-form-textarea u-label-left u-form-group-8">
+            <label for="textarea-d62b" class="u-label">Address</label>
+            <textarea rows="4" cols="50" id="textarea-d62b" name="companyAddress" class="u-input u-input-rectangle"
+              required="" placeholder="Current term address"></textarea>
+          </div>
+
+          <div class="u-form-group u-form-textarea u-label-left u-form-group-8">
+            <label for="textarea-d62b" class="u-label">Type of Business</label>
+            <textarea rows="4" cols="50" id="textarea-d62b" name="typeOfBusiness" class="u-input u-input-rectangle"
+              required="" placeholder="Current term address"></textarea>
+          </div>
+
+          <div class="u-form-group u-form-textarea u-label-left u-form-group-8">
+            <label for="textarea-d62b" class="u-label">Number of Employee</label>
+            <textarea rows="4" cols="50" id="textarea-d62b" name="numOfEmployee" class="u-input u-input-rectangle"
+              required="" placeholder="Current term address"></textarea>
+          </div>
+
+          <div class="u-form-group u-form-textarea u-label-left u-form-group-8">
+            <label for="textarea-d62b" class="u-label">Overview</label>
+            <textarea rows="4" cols="50" id="textarea-d62b" name="overview" class="u-input u-input-rectangle"
+              required="" placeholder="Current term address"></textarea>
+          </div>
+          
+          <div class="u-form-group u-label-left u-form-group-6">
+            <label for="text-4bb8" class="u-label">Password</label>
+            <input type="text" id="text-4bb8" name="companyPassword" class="u-input u-input-rectangle">
+          </div>
+      </div>
+      <div class="u-align-justify u-border-2 u-border-palette-5-base u-container-style u-group u-group-2" style=" margin: 11px 36px 11px;">
+        <div class="u-container-layout u-container-layout-2">
+          <div class="u-container-style u-expanded-width u-group u-palette-5-light-2 u-shape-rectangle u-group-3">
+            <div class="u-container-layout u-container-layout-3">
+              <p class="u-text u-text-default u-text-2">General Terms and Conditions</p>
+              <quillbot-extension
+                style="position: absolute; top: 0px; left: 0px; pointer-events: none;"></quillbot-extension>
+              <quillbot-extension-highlights
+                style="position: absolute; top: 0px; left: 0px; pointer-events: none;"></quillbot-extension-highlights>
+            </div>
+          </div>
+          <p class="u-text u-text-palette-2-base u-text-3"> You have entered the secure portion of the Tunku Abdul
+            Rahman University College (​TAR UC ITP) website. Throughout the terms herein, reference to ​TAR UC ITP means
+            ​TAR UC ITP, its parent company, affiliates, subsidiaries, employees, consultants, and subcontractors<br>
+            <br>Terms of Use<br>By accepting the terms of use, you will be allowed access to programs, reports, and
+            information protected by federal and state law contained in the secure portion of this website. Only
+            authorized persons in lawful possession of a password provided by ​TAR UC ITP to provide such passwords may
+            enter and access the secure portion of this website. The use of this website is subject to the terms of use
+            contained herein.<br>
+            <br>Once you have accepted the terms of use, you will not be asked to accept such terms again when you
+            access the site another time. ​TAR UC ITP has the right at any time to change or modify the terms of use
+            which will be posted on this website. Any use of the website by you after modified terms have been posted
+            will be deemed to constitute acceptance by you of the modified terms. ​TAR UC ITP has the right at any time
+            to change or discontinue any aspect or feature of this website and to terminate any users access to the
+            website. ​TAR UC ITP has the right, but not the obligation, to monitor your use and access of this site
+          </p>
+          <button type="submit"
+            class="u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-radius-5 u-btn-2" style="margin: 11px 502px 11px;">I Accept</button>
+        </form>
+		<a href="/companyLogin" class="u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-radius-5 u-btn-2" style="color: red; margin: 11px 500px 11px;">I decline</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="u-align-center u-clearfix u-section-2" id="sec-decc">
+    <div class="u-clearfix u-sheet u-sheet-1"></div>
+  </section>
+
+
+
+  <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-837d">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <p class="u-align-left u-custom-font u-font-merriweather u-small-text u-text u-text-variant u-text-1"> © 2023 -
+        TAR UMT FOCS ITP<span style="font-weight: 700;"></span>
+      </p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
